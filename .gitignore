@@ -1,0 +1,29 @@
+# وابستگی‌ها
+node_modules/
+
+# خروجی بیلد Next.js
+.next/
+out/
+
+# رازها و فایل‌های محیطی
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# کلیدهای دیپلوی
+nobat-deploy-key
+nobat-deploy-key.pub
+
+# لاگ و فایل موقت
+*.log
+npm-debug.log*
+coverage/
+*.tsbuildinfo
+
+# سیستم‌عامل و ویرایشگر
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

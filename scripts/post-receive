@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+# ─────────────────────────────────────────────────────────────
+# هوک استقرار مستقیم «git push به سرور» — بدون نیاز به GitHub
+#
+# راه‌اندازی یک‌بار روی سرور:
+#   git init --bare /srv/git/nobatesalamat.git
+#   cp scripts/post-receive /srv/git/nobatesalamat.git/hooks/post-receive
+#   chmod +x /srv/git/nobatesalamat.git/hooks/post-receive
+# سپس روی کامپیوتر خود:
+#   git remote add production ssh://deploy@SERVER/srv/git/nobatesalamat.git
+#   git push production main
+# ─────────────────────────────────────────────────────────────
+set -euo pipefail
+
+APP_DIR="${APP_DIR:-/var/www/nobatesalamat}"
+BRANCH="${BRANCH:-main}"
+GIT_DIR_PATH="$(cd "$(dirname "$0")/.." && pwd)"
+
+while read -r oldrev newrev ref; do
+  if [ "$ref" = "refs/heads/$BRANCH" ]; then
+    echo "▶ شاخه $BRANCH دریافت شد — شروع استقرار …"
+    git --work-tree="$APP_DIR" --git-dir="$GIT_DIR_PATH" checkout -f "$BRANCH"
+    SKIP_GIT_PULL=1 APP_DIR="$APP_DIR" bash "$APP_DIR/scripts/deploy.sh"
+  fi
+done
