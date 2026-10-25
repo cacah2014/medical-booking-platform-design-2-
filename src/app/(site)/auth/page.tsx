@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
 import { CalendarHeart, ShieldCheck, Sparkles, Zap } from "lucide-react";
+import Link from "next/link";
 import { AuthForm } from "@/components/auth-form";
+import { FrameBreak } from "@/components/frame-break";
 import { getPatient } from "@/lib/patient-auth";
 import { formatFaNumber } from "@/lib/utils";
 
@@ -26,6 +28,7 @@ export default async function AuthPage({
 
   return (
     <section className="relative overflow-hidden">
+      <FrameBreak />
       <div className="dot-grid pointer-events-none absolute -top-10 start-0 h-72 w-72 opacity-60" />
       <div className="pointer-events-none absolute -end-40 top-20 size-[420px] rounded-full bg-jade-100/70 blur-3xl" />
 
@@ -75,6 +78,12 @@ export default async function AuthPage({
           <Suspense>
             <AuthForm />
           </Suspense>
+          <p className="mt-6 border-t border-dashed border-line pt-5 text-center text-xs text-ink-faint">
+            مدیر سیستم هستید؟{" "}
+            <Link href="/admin/login" className="font-extrabold text-jade-700 transition-colors hover:text-coral-600">
+              ورود به پنل مدیریت ←
+            </Link>
+          </p>
         </div>
       </div>
     </section>

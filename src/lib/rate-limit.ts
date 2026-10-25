@@ -25,16 +25,31 @@ export function rateLimit(
   }
 
   const bucket = buckets.get(key);
-  if (!bucket || bucket.resetAt < now) {
-    buckets.set(key, { count: 1, resetAt: now + windowMs });
+  if (!bucket) {
+    // Only register the failure — checked AFTER caller knows the attempt failed
+    buckets.set(key, { count: 0, resetAt: now + windowMs });
     return { ok: true, retryAfter: 0 };
   }
-
-  bucket.count += 1;
-  if (bucket.count > limit) {
+  if (bucket.resetAt < now) {
+    bucket.count = 0;
+    bucket.resetAt = now + windowMs;
+    return { ok: true, retryAfter: 0 };
+  }
+  if (bucket.count >= limit) {
     return { ok: false, retryAfter: Math.max(1, Math.ceil((bucket.resetAt - now) / 1000)) };
   }
   return { ok: true, retryAfter: 0 };
+}
+
+/** Register a failed attempt (called only when credentials are wrong) */
+export function recordFailure(key: string) {
+  const bucket = buckets.get(key);
+  if (bucket) bucket.count += 1;
+}
+
+/** Clear failures after a successful login */
+export function clearFailures(key: string) {
+  buckets.delete(key);
 }
 
 export function clientIp(req: Request): string {

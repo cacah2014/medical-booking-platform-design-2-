@@ -11,6 +11,7 @@ import {
   Loader2,
   LogOut,
   MessageSquareText,
+  Rocket,
   ShieldCheck,
   SlidersHorizontal,
   Stethoscope,
@@ -24,6 +25,7 @@ const NAV = [
   { href: "/admin/reviews", label: "مدیریت نظرات", icon: MessageSquareText },
   { href: "/admin/users", label: "مدیران سیستم", icon: ShieldCheck },
   { href: "/admin/settings", label: "ویرایش محتوای سایت", icon: SlidersHorizontal },
+  { href: "/admin/update", label: "بروزرسانی پروژه", icon: Rocket },
 ];
 
 export function AdminSidebar({ username }: { username: string }) {

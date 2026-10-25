@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import { CalendarHeart, KeyRound, ShieldCheck } from "lucide-react";
 import { AdminLoginForm } from "@/components/admin/login-form";
+import { FrameBreak } from "@/components/frame-break";
 import { getAdminSession } from "@/lib/auth";
 
 export const dynamic = "force-dynamic";
@@ -21,6 +22,7 @@ export default async function AdminLoginPage() {
 
   return (
     <div className="relative grid min-h-dvh place-items-center overflow-hidden bg-jade-950 px-4 py-12">
+      <FrameBreak />
       <div className="dot-grid-dark pointer-events-none absolute inset-0 opacity-40" />
       <div className="pointer-events-none absolute -end-40 -top-40 size-[480px] rounded-full bg-jade-800/50 blur-3xl" />
       <div className="pointer-events-none absolute -bottom-40 -start-40 size-[420px] rounded-full bg-coral-600/20 blur-3xl" />

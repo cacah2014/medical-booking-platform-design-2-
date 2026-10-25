@@ -1,29 +1,30 @@
-# وابستگی‌ها
-node_modules/
+# ═══ اسرار و متغیرهای محیطی — هرگز روی گیت نرود ═══
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+nobat-deploy-key*
 
-# خروجی بیلد Next.js
+# ═══ Next.js ═══
 .next/
 out/
 
-# رازها و فایل‌های محیطی
-.env
-.env.*
-!.env.example
-*.pem
-*.key
+# ═══ وابستگی‌ها ═══
+node_modules/
 
-# کلیدهای دیپلوی
-nobat-deploy-key
-nobat-deploy-key.pub
-
-# لاگ و فایل موقت
+# ═══ لاگ‌ها و فایل‌های موقت به‌روزرسانی ═══
+.update-log.txt
+.update.pid
 *.log
 npm-debug.log*
-coverage/
-*.tsbuildinfo
 
-# سیستم‌عامل و ویرایشگر
+# ═══ سیستم‌عامل و ویرایشگر ═══
 .DS_Store
 Thumbs.db
-.idea/
 .vscode/
+.idea/
+
+# ═══ دیتای محلی ═══
+*.tsbuildinfo
+next-env.d.ts
